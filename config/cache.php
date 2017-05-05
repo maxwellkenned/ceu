@@ -11,8 +11,11 @@ return [
     | using this caching library. This connection is used when another is
     | not explicitly specified when executing a given caching function.
     |
+<<<<<<< HEAD
     | Supported: "apc", "array", "database", "file", "memcached", "redis"
     |
+=======
+>>>>>>> f87259c8f0a22fc60bf3c85dc0ec1809fb92c25c
     */
 
     'default' => env('CACHE_DRIVER', 'file'),
@@ -46,11 +49,16 @@ return [
 
         'file' => [
             'driver' => 'file',
+<<<<<<< HEAD
             'path' => storage_path('framework/cache/data'),
+=======
+            'path' => storage_path('framework/cache'),
+>>>>>>> f87259c8f0a22fc60bf3c85dc0ec1809fb92c25c
         ],
 
         'memcached' => [
             'driver' => 'memcached',
+<<<<<<< HEAD
             'persistent_id' => env('MEMCACHED_PERSISTENT_ID'),
             'sasl' => [
                 env('MEMCACHED_USERNAME'),
@@ -59,6 +67,8 @@ return [
             'options' => [
                 // Memcached::OPT_CONNECT_TIMEOUT  => 2000,
             ],
+=======
+>>>>>>> f87259c8f0a22fc60bf3c85dc0ec1809fb92c25c
             'servers' => [
                 [
                     'host' => env('MEMCACHED_HOST', '127.0.0.1'),

@@ -1,6 +1,10 @@
 <?php
 
+<<<<<<< HEAD
 namespace ceu\Console;
+=======
+namespace App\Console;
+>>>>>>> f87259c8f0a22fc60bf3c85dc0ec1809fb92c25c
 
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
@@ -13,7 +17,11 @@ class Kernel extends ConsoleKernel
      * @var array
      */
     protected $commands = [
+<<<<<<< HEAD
         //
+=======
+        // Commands\Inspire::class,
+>>>>>>> f87259c8f0a22fc60bf3c85dc0ec1809fb92c25c
     ];
 
     /**
@@ -27,6 +35,7 @@ class Kernel extends ConsoleKernel
         // $schedule->command('inspire')
         //          ->hourly();
     }
+<<<<<<< HEAD
 
     /**
      * Register the Closure based commands for the application.
@@ -37,4 +46,6 @@ class Kernel extends ConsoleKernel
     {
         require base_path('routes/console.php');
     }
+=======
+>>>>>>> f87259c8f0a22fc60bf3c85dc0ec1809fb92c25c
 }
