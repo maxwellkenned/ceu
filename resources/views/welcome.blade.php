@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 <!doctype html>
 <html lang="{{ config('app.locale') }}">
     <head>
@@ -40,38 +39,10 @@
                 position: absolute;
                 right: 10px;
                 top: 18px;
-=======
-<!DOCTYPE html>
-<html>
-    <head>
-        <title>Laravel</title>
-
-        <link href="https://fonts.googleapis.com/css?family=Lato:100" rel="stylesheet" type="text/css">
-
-        <style>
-            html, body {
-                height: 100%;
-            }
-
-            body {
-                margin: 0;
-                padding: 0;
-                width: 100%;
-                display: table;
-                font-weight: 100;
-                font-family: 'Lato';
-            }
-
-            .container {
-                text-align: center;
-                display: table-cell;
-                vertical-align: middle;
->>>>>>> f87259c8f0a22fc60bf3c85dc0ec1809fb92c25c
             }
 
             .content {
                 text-align: center;
-<<<<<<< HEAD
             }
 
             .title {
@@ -90,18 +61,10 @@
 
             .m-b-md {
                 margin-bottom: 30px;
-=======
-                display: inline-block;
-            }
-
-            .title {
-                font-size: 96px;
->>>>>>> f87259c8f0a22fc60bf3c85dc0ec1809fb92c25c
             }
         </style>
     </head>
     <body>
-<<<<<<< HEAD
         <div class="flex-center position-ref full-height">
             @if (Route::has('login'))
                 <div class="top-right links">
@@ -126,11 +89,6 @@
                     <a href="https://forge.laravel.com">Forge</a>
                     <a href="https://github.com/laravel/laravel">GitHub</a>
                 </div>
-=======
-        <div class="container">
-            <div class="content">
-                <div class="title">Laravel 5</div>
->>>>>>> f87259c8f0a22fc60bf3c85dc0ec1809fb92c25c
             </div>
         </div>
     </body>

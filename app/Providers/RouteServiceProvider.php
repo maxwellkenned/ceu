@@ -1,14 +1,8 @@
 <?php
 
-<<<<<<< HEAD
-namespace ceu\Providers;
-
-use Illuminate\Support\Facades\Route;
-=======
 namespace App\Providers;
 
-use Illuminate\Routing\Router;
->>>>>>> f87259c8f0a22fc60bf3c85dc0ec1809fb92c25c
+use Illuminate\Support\Facades\Route;
 use Illuminate\Foundation\Support\Providers\RouteServiceProvider as ServiceProvider;
 
 class RouteServiceProvider extends ServiceProvider
@@ -20,16 +14,11 @@ class RouteServiceProvider extends ServiceProvider
      *
      * @var string
      */
-<<<<<<< HEAD
-    protected $namespace = 'ceu\Http\Controllers';
-=======
     protected $namespace = 'App\Http\Controllers';
->>>>>>> f87259c8f0a22fc60bf3c85dc0ec1809fb92c25c
 
     /**
      * Define your route model bindings, pattern filters, etc.
      *
-<<<<<<< HEAD
      * @return void
      */
     public function boot()
@@ -37,22 +26,11 @@ class RouteServiceProvider extends ServiceProvider
         //
 
         parent::boot();
-=======
-     * @param  \Illuminate\Routing\Router  $router
-     * @return void
-     */
-    public function boot(Router $router)
-    {
-        //
-
-        parent::boot($router);
->>>>>>> f87259c8f0a22fc60bf3c85dc0ec1809fb92c25c
     }
 
     /**
      * Define the routes for the application.
      *
-<<<<<<< HEAD
      * @return void
      */
     public function map()
@@ -60,14 +38,6 @@ class RouteServiceProvider extends ServiceProvider
         $this->mapApiRoutes();
 
         $this->mapWebRoutes();
-=======
-     * @param  \Illuminate\Routing\Router  $router
-     * @return void
-     */
-    public function map(Router $router)
-    {
-        $this->mapWebRoutes($router);
->>>>>>> f87259c8f0a22fc60bf3c85dc0ec1809fb92c25c
 
         //
     }
@@ -77,7 +47,6 @@ class RouteServiceProvider extends ServiceProvider
      *
      * These routes all receive session state, CSRF protection, etc.
      *
-<<<<<<< HEAD
      * @return void
      */
     protected function mapWebRoutes()
@@ -100,17 +69,5 @@ class RouteServiceProvider extends ServiceProvider
              ->middleware('api')
              ->namespace($this->namespace)
              ->group(base_path('routes/api.php'));
-=======
-     * @param  \Illuminate\Routing\Router  $router
-     * @return void
-     */
-    protected function mapWebRoutes(Router $router)
-    {
-        $router->group([
-            'namespace' => $this->namespace, 'middleware' => 'web',
-        ], function ($router) {
-            require app_path('Http/routes.php');
-        });
->>>>>>> f87259c8f0a22fc60bf3c85dc0ec1809fb92c25c
     }
 }

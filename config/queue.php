@@ -7,19 +7,11 @@ return [
     | Default Queue Driver
     |--------------------------------------------------------------------------
     |
-<<<<<<< HEAD
     | Laravel's queue API supports an assortment of back-ends via a single
     | API, giving you convenient access to each back-end using the same
     | syntax for each one. Here you may set the default queue driver.
     |
     | Supported: "sync", "database", "beanstalkd", "sqs", "redis", "null"
-=======
-    | The Laravel queue API supports a variety of back-ends via an unified
-    | API, giving you convenient access to each back-end using the same
-    | syntax for each one. Here you may set the default queue driver.
-    |
-    | Supported: "null", "sync", "database", "beanstalkd", "sqs", "redis"
->>>>>>> f87259c8f0a22fc60bf3c85dc0ec1809fb92c25c
     |
     */
 
@@ -46,22 +38,14 @@ return [
             'driver' => 'database',
             'table' => 'jobs',
             'queue' => 'default',
-<<<<<<< HEAD
             'retry_after' => 90,
-=======
-            'expire' => 60,
->>>>>>> f87259c8f0a22fc60bf3c85dc0ec1809fb92c25c
         ],
 
         'beanstalkd' => [
             'driver' => 'beanstalkd',
             'host' => 'localhost',
             'queue' => 'default',
-<<<<<<< HEAD
             'retry_after' => 90,
-=======
-            'ttr' => 60,
->>>>>>> f87259c8f0a22fc60bf3c85dc0ec1809fb92c25c
         ],
 
         'sqs' => [
@@ -77,11 +61,7 @@ return [
             'driver' => 'redis',
             'connection' => 'default',
             'queue' => 'default',
-<<<<<<< HEAD
             'retry_after' => 90,
-=======
-            'expire' => 60,
->>>>>>> f87259c8f0a22fc60bf3c85dc0ec1809fb92c25c
         ],
 
     ],

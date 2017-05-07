@@ -11,13 +11,8 @@ return [
     | sending of e-mail. You may specify which one you're using throughout
     | your application here. By default, Laravel is setup for SMTP mail.
     |
-<<<<<<< HEAD
     | Supported: "smtp", "sendmail", "mailgun", "mandrill", "ses",
     |            "sparkpost", "log", "array"
-=======
-    | Supported: "smtp", "mail", "sendmail", "mailgun", "mandrill",
-    |            "ses", "sparkpost", "log"
->>>>>>> f87259c8f0a22fc60bf3c85dc0ec1809fb92c25c
     |
     */
 
@@ -60,14 +55,10 @@ return [
     |
     */
 
-<<<<<<< HEAD
     'from' => [
         'address' => env('MAIL_FROM_ADDRESS', 'hello@example.com'),
         'name' => env('MAIL_FROM_NAME', 'Example'),
     ],
-=======
-    'from' => ['address' => null, 'name' => null],
->>>>>>> f87259c8f0a22fc60bf3c85dc0ec1809fb92c25c
 
     /*
     |--------------------------------------------------------------------------
@@ -95,7 +86,6 @@ return [
 
     'username' => env('MAIL_USERNAME'),
 
-<<<<<<< HEAD
     'password' => env('MAIL_PASSWORD'),
 
     /*
@@ -129,32 +119,5 @@ return [
             resource_path('views/vendor/mail'),
         ],
     ],
-=======
-    /*
-    |--------------------------------------------------------------------------
-    | SMTP Server Password
-    |--------------------------------------------------------------------------
-    |
-    | Here you may set the password required by your SMTP server to send out
-    | messages from your application. This will be given to the server on
-    | connection so that the application will be able to send messages.
-    |
-    */
-
-    'password' => env('MAIL_PASSWORD'),
-
-    /*
-    |--------------------------------------------------------------------------
-    | Sendmail System Path
-    |--------------------------------------------------------------------------
-    |
-    | When using the "sendmail" driver to send e-mails, we will need to know
-    | the path to where Sendmail lives on this server. A default path has
-    | been provided here, which will work well on most of your systems.
-    |
-    */
-
-    'sendmail' => '/usr/sbin/sendmail -bs',
->>>>>>> f87259c8f0a22fc60bf3c85dc0ec1809fb92c25c
 
 ];

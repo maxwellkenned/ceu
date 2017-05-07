@@ -1,8 +1,8 @@
 <?php
 
-namespace ceu\Http\Controllers\Auth;
+namespace App\Http\Controllers\Auth;
 
-use ceu\Http\Controllers\Controller;
+use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\AuthenticatesUsers;
 
 class LoginController extends Controller

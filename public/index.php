@@ -4,11 +4,7 @@
  * Laravel - A PHP Framework For Web Artisans
  *
  * @package  Laravel
-<<<<<<< HEAD
  * @author   Taylor Otwell <taylor@laravel.com>
-=======
- * @author   Taylor Otwell <taylorotwell@gmail.com>
->>>>>>> f87259c8f0a22fc60bf3c85dc0ec1809fb92c25c
  */
 
 /*
@@ -19,11 +15,7 @@
 | Composer provides a convenient, automatically generated class loader for
 | our application. We just need to utilize it! We'll simply require it
 | into the script here so that we don't have to worry about manual
-<<<<<<< HEAD
 | loading any of our classes later on. It feels great to relax.
-=======
-| loading any of our classes later on. It feels nice to relax.
->>>>>>> f87259c8f0a22fc60bf3c85dc0ec1809fb92c25c
 |
 */
 

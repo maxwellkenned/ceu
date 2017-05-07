@@ -5,34 +5,21 @@
     "license": "MIT",
     "type": "project",
     "require": {
-<<<<<<< HEAD
         "php": ">=5.6.4",
         "laravel/framework": "5.4.*",
-        "laravel/tinker": "~1.0",
-        "twbs/bootstrap": "^3.3"
-=======
-        "php": ">=5.5.9",
-        "laravel/framework": "5.2.*"
->>>>>>> f87259c8f0a22fc60bf3c85dc0ec1809fb92c25c
+        "laravel/tinker": "~1.0"
     },
     "require-dev": {
         "fzaninotto/faker": "~1.4",
         "mockery/mockery": "0.9.*",
-<<<<<<< HEAD
         "phpunit/phpunit": "~5.7"
-=======
-        "phpunit/phpunit": "~4.0",
-        "symfony/css-selector": "2.8.*|3.0.*",
-        "symfony/dom-crawler": "2.8.*|3.0.*"
->>>>>>> f87259c8f0a22fc60bf3c85dc0ec1809fb92c25c
     },
     "autoload": {
         "classmap": [
             "database"
         ],
         "psr-4": {
-<<<<<<< HEAD
-            "ceu\\": "app/"
+            "App\\": "app/"
         }
     },
     "autoload-dev": {
@@ -43,19 +30,6 @@
     "scripts": {
         "post-root-package-install": [
             "php -r \"file_exists('.env') || copy('.env.example', '.env');\""
-=======
-            "App\\": "app/"
-        }
-    },
-    "autoload-dev": {
-        "classmap": [
-            "tests/TestCase.php"
-        ]
-    },
-    "scripts": {
-        "post-root-package-install": [
-            "php -r \"copy('.env.example', '.env');\""
->>>>>>> f87259c8f0a22fc60bf3c85dc0ec1809fb92c25c
         ],
         "post-create-project-cmd": [
             "php artisan key:generate"
@@ -70,12 +44,8 @@
         ]
     },
     "config": {
-<<<<<<< HEAD
         "preferred-install": "dist",
         "sort-packages": true,
         "optimize-autoloader": true
-=======
-        "preferred-install": "dist"
->>>>>>> f87259c8f0a22fc60bf3c85dc0ec1809fb92c25c
     }
 }

@@ -4,7 +4,6 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-<<<<<<< HEAD
     | Application Name
     |--------------------------------------------------------------------------
     |
@@ -17,8 +16,6 @@ return [
 
     /*
     |--------------------------------------------------------------------------
-=======
->>>>>>> f87259c8f0a22fc60bf3c85dc0ec1809fb92c25c
     | Application Environment
     |--------------------------------------------------------------------------
     |
@@ -125,11 +122,8 @@ return [
 
     'log' => env('APP_LOG', 'single'),
 
-<<<<<<< HEAD
     'log_level' => env('APP_LOG_LEVEL', 'debug'),
 
-=======
->>>>>>> f87259c8f0a22fc60bf3c85dc0ec1809fb92c25c
     /*
     |--------------------------------------------------------------------------
     | Autoloaded Service Providers
@@ -158,10 +152,7 @@ return [
         Illuminate\Foundation\Providers\FoundationServiceProvider::class,
         Illuminate\Hashing\HashServiceProvider::class,
         Illuminate\Mail\MailServiceProvider::class,
-<<<<<<< HEAD
         Illuminate\Notifications\NotificationServiceProvider::class,
-=======
->>>>>>> f87259c8f0a22fc60bf3c85dc0ec1809fb92c25c
         Illuminate\Pagination\PaginationServiceProvider::class,
         Illuminate\Pipeline\PipelineServiceProvider::class,
         Illuminate\Queue\QueueServiceProvider::class,
@@ -173,7 +164,6 @@ return [
         Illuminate\View\ViewServiceProvider::class,
 
         /*
-<<<<<<< HEAD
          * Package Service Providers...
          */
         Laravel\Tinker\TinkerServiceProvider::class,
@@ -181,19 +171,11 @@ return [
         /*
          * Application Service Providers...
          */
-        ceu\Providers\AppServiceProvider::class,
-        ceu\Providers\AuthServiceProvider::class,
-        // ceu\Providers\BroadcastServiceProvider::class,
-        ceu\Providers\EventServiceProvider::class,
-        ceu\Providers\RouteServiceProvider::class,
-=======
-         * Application Service Providers...
-         */
         App\Providers\AppServiceProvider::class,
         App\Providers\AuthServiceProvider::class,
+        // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
->>>>>>> f87259c8f0a22fc60bf3c85dc0ec1809fb92c25c
 
     ],
 
@@ -214,11 +196,8 @@ return [
         'Artisan' => Illuminate\Support\Facades\Artisan::class,
         'Auth' => Illuminate\Support\Facades\Auth::class,
         'Blade' => Illuminate\Support\Facades\Blade::class,
-<<<<<<< HEAD
         'Broadcast' => Illuminate\Support\Facades\Broadcast::class,
         'Bus' => Illuminate\Support\Facades\Bus::class,
-=======
->>>>>>> f87259c8f0a22fc60bf3c85dc0ec1809fb92c25c
         'Cache' => Illuminate\Support\Facades\Cache::class,
         'Config' => Illuminate\Support\Facades\Config::class,
         'Cookie' => Illuminate\Support\Facades\Cookie::class,
@@ -232,10 +211,7 @@ return [
         'Lang' => Illuminate\Support\Facades\Lang::class,
         'Log' => Illuminate\Support\Facades\Log::class,
         'Mail' => Illuminate\Support\Facades\Mail::class,
-<<<<<<< HEAD
         'Notification' => Illuminate\Support\Facades\Notification::class,
-=======
->>>>>>> f87259c8f0a22fc60bf3c85dc0ec1809fb92c25c
         'Password' => Illuminate\Support\Facades\Password::class,
         'Queue' => Illuminate\Support\Facades\Queue::class,
         'Redirect' => Illuminate\Support\Facades\Redirect::class,

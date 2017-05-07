@@ -16,19 +16,13 @@ return [
     'accepted'             => 'The :attribute must be accepted.',
     'active_url'           => 'The :attribute is not a valid URL.',
     'after'                => 'The :attribute must be a date after :date.',
-<<<<<<< HEAD
     'after_or_equal'       => 'The :attribute must be a date after or equal to :date.',
-=======
->>>>>>> f87259c8f0a22fc60bf3c85dc0ec1809fb92c25c
     'alpha'                => 'The :attribute may only contain letters.',
     'alpha_dash'           => 'The :attribute may only contain letters, numbers, and dashes.',
     'alpha_num'            => 'The :attribute may only contain letters and numbers.',
     'array'                => 'The :attribute must be an array.',
     'before'               => 'The :attribute must be a date before :date.',
-<<<<<<< HEAD
     'before_or_equal'      => 'The :attribute must be a date before or equal to :date.',
-=======
->>>>>>> f87259c8f0a22fc60bf3c85dc0ec1809fb92c25c
     'between'              => [
         'numeric' => 'The :attribute must be between :min and :max.',
         'file'    => 'The :attribute must be between :min and :max kilobytes.',
@@ -42,19 +36,12 @@ return [
     'different'            => 'The :attribute and :other must be different.',
     'digits'               => 'The :attribute must be :digits digits.',
     'digits_between'       => 'The :attribute must be between :min and :max digits.',
-<<<<<<< HEAD
     'dimensions'           => 'The :attribute has invalid image dimensions.',
     'distinct'             => 'The :attribute field has a duplicate value.',
     'email'                => 'The :attribute must be a valid email address.',
     'exists'               => 'The selected :attribute is invalid.',
     'file'                 => 'The :attribute must be a file.',
     'filled'               => 'The :attribute field must have a value.',
-=======
-    'distinct'             => 'The :attribute field has a duplicate value.',
-    'email'                => 'The :attribute must be a valid email address.',
-    'exists'               => 'The selected :attribute is invalid.',
-    'filled'               => 'The :attribute field is required.',
->>>>>>> f87259c8f0a22fc60bf3c85dc0ec1809fb92c25c
     'image'                => 'The :attribute must be an image.',
     'in'                   => 'The selected :attribute is invalid.',
     'in_array'             => 'The :attribute field does not exist in :other.',
@@ -68,10 +55,7 @@ return [
         'array'   => 'The :attribute may not have more than :max items.',
     ],
     'mimes'                => 'The :attribute must be a file of type: :values.',
-<<<<<<< HEAD
     'mimetypes'            => 'The :attribute must be a file of type: :values.',
-=======
->>>>>>> f87259c8f0a22fc60bf3c85dc0ec1809fb92c25c
     'min'                  => [
         'numeric' => 'The :attribute must be at least :min.',
         'file'    => 'The :attribute must be at least :min kilobytes.',
@@ -99,10 +83,7 @@ return [
     'string'               => 'The :attribute must be a string.',
     'timezone'             => 'The :attribute must be a valid zone.',
     'unique'               => 'The :attribute has already been taken.',
-<<<<<<< HEAD
     'uploaded'             => 'The :attribute failed to upload.',
-=======
->>>>>>> f87259c8f0a22fc60bf3c85dc0ec1809fb92c25c
     'url'                  => 'The :attribute format is invalid.',
 
     /*

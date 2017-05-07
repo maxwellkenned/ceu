@@ -9,28 +9,17 @@
          processIsolation="false"
          stopOnFailure="false">
     <testsuites>
-<<<<<<< HEAD
         <testsuite name="Feature Tests">
             <directory suffix="Test.php">./tests/Feature</directory>
         </testsuite>
 
         <testsuite name="Unit Tests">
             <directory suffix="Test.php">./tests/Unit</directory>
-=======
-        <testsuite name="Application Test Suite">
-            <directory suffix="Test.php">./tests</directory>
->>>>>>> f87259c8f0a22fc60bf3c85dc0ec1809fb92c25c
         </testsuite>
     </testsuites>
     <filter>
         <whitelist processUncoveredFilesFromWhitelist="true">
             <directory suffix=".php">./app</directory>
-<<<<<<< HEAD
-=======
-            <exclude>
-                <file>./app/Http/routes.php</file>
-            </exclude>
->>>>>>> f87259c8f0a22fc60bf3c85dc0ec1809fb92c25c
         </whitelist>
     </filter>
     <php>
