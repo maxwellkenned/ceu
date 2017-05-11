@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Exceptions;
+namespace ceu\Exceptions;
 
 use Exception;
 use Illuminate\Auth\AuthenticationException;
@@ -44,7 +44,35 @@ class Handler extends ExceptionHandler
      */
     public function render($request, Exception $exception)
     {
-        return parent::render($request, $exception);
+        $e = $exception;
+        if($this->isHttpException($e))
+        {
+            switch ($e->getStatusCode()) 
+                {
+                // not found
+                case 404:
+                return redirect('/');
+                break;
+
+                case 405:
+                return redirect('/');
+                break;
+
+                // internal error
+                case 500:
+                return redirect('/');
+                break;
+
+                default:
+                    return $this->renderHttpException($e);
+                break;
+            }
+        }
+        else
+        {
+                //return parent::render($request, $e);
+                return parent::render($request, $exception);
+        }
     }
 
     /**
