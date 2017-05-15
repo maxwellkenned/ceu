@@ -14,15 +14,14 @@
         <div class="col-md-8">
             <div class="panel panel-default">
                 <div class="panel-heading">Upload</div>
-                <form action="upload" method="post" enctype="multipart/form-data">
-                    {{csrf_field()}}
-                    <input type="file" name="uploadfile"/>
-                    <input type="submit" name="upload" value="upload" /> 
-                </form>
+                    <form action="/upload" class="dropzone needsclick dz-clickable" id="formUpload">
+                        {{csrf_field()}}
+                    </form>
             </div>
             <div class="panel panel-default">
                 <div class="panel-heading">Arquivos</div>
                 @if($arquivos)
+                <div class="table-responsive">
                    <table class="table table-striped table-condensed">
                          <tr>
                             <td></td>
@@ -45,6 +44,7 @@
                        </tr>
                     @endforeach
                    </table>
+                </div>
                    @endif
             </div>
         </div>
@@ -58,23 +58,30 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/jstree.min.js"></script>
 
     <script type="text/javascript">
-                $('#jstree').jstree({
-                    'core': {
-                        'data': {
-                            'url': '{!! route('tree.data') !!}',
-                            'data': function (node) {
-                                console.log(node);
-                                return {'id': node.id};
-                            },
-                            'error': function (data) {
-                                $('#jstree').html('<p>We had an error...</p>');
-                            }
-                        }
+        $('#jstree').jstree({
+            'core': {
+                'data': {
+                    'url': '{!! route('tree.data') !!}',
+                    'data': function (node) {
+                        return {'id': node.id};
+                    },
+                    'error': function (data) {
+                        $('#jstree').html('<p>We had an error...</p>');
                     }
-                }).on('activate_node.jstree', function (e, data) {
-                    if(data.node.a_attr.href != "#"){
-                        window.open(data.node.a_attr.href);
-                    }
-                });
+                }
+            }
+        }).on('activate_node.jstree', function (e, data) {
+            if(data.node.a_attr.href != "#"){
+                window.open(data.node.a_attr.href);
+            }
+        });
+        Dropzone.options.formUpload = {
+          paramName: "uploadfile", // The name that will be used to transfer the file
+          uploadMultiple: true,
+          dictDefaultMessage: "Solte arquivos aqui ou clique para fazer o upload.",
+          queuecomplete: function(){
+            window.location.href ="{{url('/')}}";
+          }
+        };
     </script>
 @endsection

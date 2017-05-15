@@ -19,30 +19,30 @@ class ArquivoController extends Controller
 
     public function upload(Request $request)
     {
+        $ret = Array();
         $barra = DIRECTORY_SEPARATOR;
-        $arquivo = new Arquivo;
-        $file = $request->file("uploadfile");
-        $filename = $file->getClientOriginalName();
         $user_id = Auth::id();
         $path = "upload" . $barra . $user_id;
+        $files = $request->file("uploadfile");
 
-        if($file->isValid()){
-            $file->storeAs($path, $filename);
-            $arquivo->nome = $filename;
-            $arquivo->pasta = $path;
-            $arquivo->ext = $file->getClientOriginalExtension();
-            $arquivo->download = $path . $barra . $filename;
-            $arquivo->size = $this->formatSizeUnits($file->getClientSize());
-            $arquivo->mime = $file->getClientMimeType();
+        if($files){
+            foreach ($files as $file) {
+                $filename = $file->getClientOriginalName();
+                $arquivo = new Arquivo;
+                $file->storeAs($path, $filename);
+                $arquivo->nome = $filename;
+                $arquivo->pasta = $path;
+                $arquivo->ext = $file->getClientOriginalExtension();
+                $arquivo->download = $path . $barra . $filename;
+                $arquivo->size = $this->formatSizeUnits($file->getClientSize());
+                $arquivo->mime = $file->getClientMimeType();
 
-            $arquivo->idusuario = $user_id;
-
-            $arquivo->save();
-        } else{
-            return $file->getErrorMessage();
+                $arquivo->idusuario = $user_id;
+                $arquivo->save();
+            }
         }
 
-        return redirect('/');
+        return redirect(url("/"));
     }
 
     public function formatSizeUnits($bytes)
@@ -91,13 +91,6 @@ class ArquivoController extends Controller
         }
         foreach ($direct as $dir) {
             $arq = explode("/", $dir);
-            /*$fileinfo = DB::table('arquivos')
-            ->select('*')
-            ->where('nome', '=', $arq[count($arq)-1])
-            ->where('idusuario', '=', $user_id)
-            ->orderBy("id")
-            ->get();*/
-            //foreach ($fileinfo as $info) {
                 array_push($arquivos, array(
                 "id"=>0,
                 "name"=>$arq[count($arq)-1],

@@ -1,0 +1,31 @@
+.margin-top{
+margin-top:5%;
+}
+.navbar-nav>li>a {
+    padding: 0 !important;
+}
+.ajax-file-upload-container{
+    margin:0 !important;;
+}
+.login .login-panel{
+    border:0px;
+    box-shadow: 0 1px 1px rgb(126, 21, 129);
+}
+.login .login-heading{
+    font-size:15px;
+    background: rgba(126, 21, 129, 0.7)!important;
+}
+.dropzone .dz-message {
+    font-family: Roboto, "Open Sans", sans-serif;
+    font-weight: 400;
+    font-size: 20px;
+    line-height: 1.4rem;
+    color: #646C7F;
+    margin: 1em 0 !important;
+}
+.dropzone {
+    border: 2px dashed rgba(126, 21, 129, 0.7)!important;;
+    border-radius: 5px;
+    background: white;
+    min-height: 0px !important;
+}
