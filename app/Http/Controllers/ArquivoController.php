@@ -116,4 +116,8 @@ class ArquivoController extends Controller
         }
     }
 
+    public function permissao(){
+        
+    }
+
 }
