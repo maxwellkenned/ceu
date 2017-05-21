@@ -4,7 +4,9 @@ namespace ceu\Http\Controllers;
 
 use Illuminate\Http\Request;
 use ceu\Http\Models\Arquivo;
+use ceu\Http\Models\Folder;
 use ceu\Support\MimeIcon;
+use ceu\Support\Helper;
 use Auth;
 use File;
 use Storage;
@@ -19,22 +21,33 @@ class ArquivoController extends Controller
 
     public function upload(Request $request)
     {
-        $ret = Array();
-        $barra = DIRECTORY_SEPARATOR;
-        $user_id = Auth::id();
-        $path = "upload" . $barra . $user_id;
-        $files = $request->file("uploadfile");
+        $barra = '/';
+        $download = "";
+        $user_id = Auth::id();        
+        $uri = $request->input("uriFolder");
+        $pathUp = "upload" . $barra . $user_id;
+        $pathInfo = '/';
+        $subPath = "";
+        if(!($uri === "/" || $uri ==="/home" )){
+                $subPath = str_replace("/path/", "", $request->input("uriFolder"));
+                $download = $subPath . $barra;
+                $pathInfo = $subPath;
+                $path .= $barra . $subPath;
+            }
 
+        $files = $request->file("uploadfile");
         if($files){
             foreach ($files as $file) {
                 $filename = $file->getClientOriginalName();
                 $arquivo = new Arquivo;
-                $file->storeAs($path, $filename);
+
+                $file->storeAs($pathUp, $filename);
+
                 $arquivo->nome = $filename;
-                $arquivo->pasta = $path;
+                $arquivo->pasta = $pathInfo;
                 $arquivo->ext = $file->getClientOriginalExtension();
-                $arquivo->download = $path . $barra . $filename;
-                $arquivo->size = $this->formatSizeUnits($file->getClientSize());
+                $arquivo->download = $download . $filename;
+                $arquivo->size = $file->getClientSize();
                 $arquivo->mime = $file->getClientMimeType();
 
                 $arquivo->idusuario = $user_id;
@@ -42,7 +55,7 @@ class ArquivoController extends Controller
             }
         }
 
-        return redirect(url("/"));
+        //return redirect();
     }
 
     public function formatSizeUnits($bytes)
@@ -51,73 +64,99 @@ class ArquivoController extends Controller
         return $bytes;
     }
 
-    public static function getFiles(){
+    public static function getFiles($uri = null){
 
-
-        $barra = DIRECTORY_SEPARATOR;
-        $user_id = Auth::id();
-        $path = "upload" . $barra . $user_id;
-        $arquivos = array();
-        $fileinfo = array();
-        $files = Storage::files($path);
-        $direct = Storage::Directories($path);
         $mimeIcon = new MimeIcon();
-
-
-        //var_dump($directories);
-
-
+        $helper = new Helper();
+        $barra = '/';
+        $user_id = Auth::id();
+        $pathUp = "upload" . $barra . $user_id . $barra;
+        $path = "upload" . $barra . $user_id . $barra;
+        $arquivos = array();
+        $uriTratada = str_replace("/path/".$path, "", $uri);
+        //$fileinfo = new Arquivo();
+        if($uri){
+            $pathUp .= $barra . $uriTratada . $barra;
+        }
+        $files = Storage::files($pathUp);
+        $direct = Storage::Directories($pathUp);
         foreach ($files as $arquivo) {
-            $arq = explode("/", $arquivo);
+            $localArq = str_replace($path, "", $arquivo);
             $fileinfo = DB::table('arquivos')
-            ->select('*')
-            ->where('nome', '=', $arq[count($arq)-1])
-            ->where('idusuario', '=', $user_id)
-            ->orderBy("id")
-            ->get();
+                        ->select('*')
+                        ->where('download', '=', $localArq)
+                        ->where('idusuario', '=', $user_id)
+                        ->orderBy("id")
+                        ->get();
             foreach ($fileinfo as $info) {
                 array_push($arquivos, array(
                 "id"=>$info->id,
                 "name"=>$info->nome,
                 "path"=>$info->pasta,
                 "ext"=>$info->ext,
-                "size"=>$info->size,
+                "size"=>$helper->tamanho_arquivo($info->size),
                 "mime"=>$mimeIcon->font_icon($info->mime),
                 "upload"=>$info->created_at,
-                "download"=>$arquivo
+                "download"=>$info->download
                 ));
             }
-            asort($arquivos);
         }
         foreach ($direct as $dir) {
-            $arq = explode("/", $dir);
+            $folder = explode("/", $dir);
+            $readFolder = explode($path, $dir);
                 array_push($arquivos, array(
-                "id"=>0,
-                "name"=>$arq[count($arq)-1],
-                "path"=>'.',
-                "ext"=>'folder',
-                "size"=>0,
+                "name"=>$folder[count($folder)-1],
                 "mime"=>$mimeIcon->font_icon('folder'),
-                "upload"=>'',
-                "download"=>'#'
+                "type"=>'folder',
+                "read"=>$readFolder[count($readFolder)-1]
                 ));
-            //}
         }
-
         return view('home')->with("arquivos", $arquivos);
     }
 
     public function download($file = ''){
+        $user_id = Auth::id();
         if($file){
-            $files = Storage_path() .'/app/' . $file;
+            $files = Storage_path() .'/app/upload/'. $user_id . '/' . $file;
             return response()->download($files);
         } else {
             return redirect('/');
         }
     }
 
+    public function createFolder(Request $request){
+        $folder = new Folder();
+        $barra = '/';
+        $user_id = Auth::id();
+        $path = "upload" . $barra . $user_id;
+        $uri = $request->input("uriFolder");
+        $uriTratada = str_replace("/path/", "", $request->input("uriFolder"));
+        $nameFolder = $request->input("nameFolder");
+        $privacityFolder = $request->input("privacityFolder");
+        $directory;
+
+        if($nameFolder){
+            $folder->nome = $nameFolder;
+            $folder->privacidade = $privacityFolder;
+            if(!($uri === "/" || $uri ==="/home" )){
+                $directory = $path . $barra . $uriTratada . $barra . $nameFolder;
+            } else {
+                $directory = $path . $barra . $nameFolder;
+            }
+            Storage::makeDirectory($directory);
+        }
+        $test = [
+        "uri"=>$uri,
+        "name"=>$nameFolder,
+        "privacidade"=>$privacityFolder,
+        "Folder"=>$folder
+        ];
+
+        return redirect($uri);
+    }
+
     public function permissao(){
-        
+
     }
 
 }

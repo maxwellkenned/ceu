@@ -13,13 +13,23 @@
 
 Route::get('/', 'HomeController@index');
 
+Route::get('/info', function(){
+    return phpinfo();
+});
+
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
 
 Route::post('/upload', 'ArquivoController@upload');
 
-Route::get("/d/{file?}", 'ArquivoController@download')->where('file', '.+');
+Route::get("/download/{file?}", ['as' => 'download', 'uses' => 'ArquivoController@download'])->where('file', '.+');
+
+Route::get("/delete/{file?}", ['as' => 'delete', 'uses' => 'ArquivoController@delete'])->where('file', '.+');
+
+Route::get("/path/{uri?}", ['as' =>'readFolder', 'uses' =>'ArquivoController@getFiles',])->where('uri', '.+');
+
+Route::post('/createFolder', ['as' => 'createFolder', 'uses' => 'ArquivoController@createFolder',]);
 
 Route::get('tree', ['uses' => 'TreeController@index',]);
 

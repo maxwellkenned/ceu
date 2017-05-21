@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateArquivosTable extends Migration
+class CreateFoldersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,16 +13,10 @@ class CreateArquivosTable extends Migration
      */
     public function up()
     {
-        Schema::create('arquivos', function (Blueprint $table) {
+        Schema::create('folders', function (Blueprint $table) {
             $table->increments('id');
             $table->string('nome');
-            $table->string('pasta');
-            $table->string('ext');
-            $table->integer('size');
-            $table->string('mime');
-            $table->string('download')->unique();
-            $table->integer('idusuario')->unsigned();
-            $table->foreign('idusuario')->references('id')->on('users');
+            $table->integer('privacidade');
             $table->timestamps();
         });
     }
@@ -34,6 +28,6 @@ class CreateArquivosTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('arquivos');
+        Schema::dropIfExists('folders');
     }
 }

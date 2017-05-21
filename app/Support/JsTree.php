@@ -1,7 +1,7 @@
 <?php
 
 namespace ceu\Support;
-
+use Auth;
 /**
  * Class JsTree
  *
@@ -303,9 +303,14 @@ class JsTree
         $filters = $this->filterExcludes($elements);
 
         $nodes = collect($filters)->map(function ($node) {
+            $barra = '/';
+            $user_id = Auth::id();
+            $path = "upload" . $barra . $user_id . $barra;
             $file = (pathinfo($node, PATHINFO_EXTENSION) ? true : false);
+            $readPath = explode($path , $node);
+            
             if($file){
-                $this->setAFileAttributes(['href' => 'd/'.$node]);
+                $this->setAFileAttributes(['href' => route('download', ['file' => $readPath[1]]) ]);
             }
             return [
                 'id'      => $node,
