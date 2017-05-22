@@ -29,6 +29,14 @@ return [
         'secret' => env('SPARKPOST_SECRET'),
     ],
 
+    'firebase' => [
+        'api_key' => "AIzaSyDc4TfakUkMbMGydUQiFG0mWStrP6NLHnI", // Only used for JS integration
+        'auth_domain' => "ceucloud.firebaseapp.com", // Only used for JS integration
+        'database_url' => "https://ceucloud.firebaseio.com",
+        'secret' => "PwPJqoBs0QUIXtduiSix4pfClunML6TQRwDoQB6B",
+        'storage_bucket' => "ceucloud.appspot.com", // Only used for JS integration
+    ],
+
     'stripe' => [
         'model' => ceu\User::class,
         'key' => env('STRIPE_KEY'),
