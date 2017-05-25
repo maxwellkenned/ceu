@@ -4,11 +4,9 @@
 <div class="container">
     <div class="row">
         <div class="col-md-3">
-            <div class="panel panel-default">
-                <div class="panel-heading">Pastas</div>
-                <table class="table table-responsive">
+            <div class="panel panel-default table-responsive">
+                <div class="panel-heading" style="padding: 5px 10px;"><a class="btn btn-primary" href="{{route('home')}}"><i class="fa fa-home fa-fw"></i>&nbsp; Início </a></div>
                     <div id="jstree"></div>
-                </table>
             </div>
         </div>
         <div class="col-md-8">
@@ -58,13 +56,21 @@
                                 <td>{{ isset($arq["ext"])?$arq["ext"]:"" }}</td>
                                 <td>{{ isset($arq["size"])?$arq["size"]: ""}} </td>
                                 <td>{{ isset($arq["upload"])?$arq["upload"]:"" }}</td>
-                                <td>
-                                    <a class="btn btn-danger btn-sm btn-top-help" href="{{ route('delete', ['file' => isset($arq["download"])?$arq["download"]:""]) }}">
-                                        <i class="fa fa-trash-o fa-lg"></i>
-                                    </a>
-                                    <a class="btn btn-primary btn-sm btn-top-help" href="{{ route('download', ['file' => isset($arq["download"])?$arq["download"]:""]) }}">
-                                        <i class="fa fa-cloud-download fa-lg"></i>
-                                    </a>
+                                <td class="button-group">
+                                    <form id="formDelete{{isset($arq["id"])?$arq["id"]:""}}" action="{{ route('delete', ['id' => isset($arq["id"])?$arq["id"]:""]) }}" method="POST" style="float: left; margin: 0 2px 0 0; width: auto;">
+                                        {{ csrf_field() }}
+                                        <input type="hidden" name="uri" value="{{$_SERVER['REQUEST_URI']}}">
+                                        <button type="submit" class="btn btn-danger btn-sm btn-top-help" href="">
+                                            <i class="fa fa-trash-o fa-lg"></i>
+                                        </button>
+                                    </form>
+                                    <form id="formDownload{{isset($arq["id"])?$arq["id"]:""}}" action="{{ route('download', ['id' => isset($arq["id"])?$arq["id"]:""]) }}" method="POST" style="float: left; width: auto;">
+                                        {{ csrf_field() }}
+                                        <input type="hidden" name="uri" value="{{$_SERVER['REQUEST_URI']}}">
+                                        <button type="submit" class="btn btn-primary btn-sm btn-top-help" href="">
+                                            <i class="fa fa-cloud-download fa-lg"></i>
+                                        </button>
+                                    </form>
                                 </td>
                             @endif
                        </tr>
@@ -76,13 +82,15 @@
         </div>
     </div>
 </div>
+<form id="downloadFile" method="POST" style="display:none;">
+    {{ csrf_field() }}
+    <input type="hidden" name="uri" value="{{$_SERVER['REQUEST_URI']}}">
+    <button type="submit" class="btn btn-danger btn-sm btn-top-help" href="">
+        <i class="fa fa-trash-o fa-lg"></i>
+    </button>
+</form>
 @endsection
 @section('script')
-    <!-- jQuery (necessary for JsTree) -->
-        <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script> -->
-        <!-- JsTree 3.3.1 -->
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/jstree.min.js"></script>
-
     <script type="text/javascript">
         $('#jstree').jstree({
             'core': {
@@ -110,5 +118,11 @@
             window.location.reload();
           }
         };
+        
+        function downloadSubmit(e){
+            var id = e.id;
+            $('#downloadFile').attr('action', '{{ route('download')}}/'+id);
+            $('#downloadFile').submit();
+        }
     </script>
 @endsection

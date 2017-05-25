@@ -2,6 +2,8 @@
 
 namespace ceu\Support;
 use Auth;
+use DB;
+use ceu\Http\Models\Arquivo;
 /**
  * Class JsTree
  *
@@ -308,9 +310,12 @@ class JsTree
             $path = "upload" . $barra . $user_id . $barra;
             $file = (pathinfo($node, PATHINFO_EXTENSION) ? true : false);
             $readPath = explode($path , $node);
+            $arquivo = new Arquivo();
+            $arquivo = DB::table('arquivos')->where('download', $readPath[1])->first();
+            $files = isset($arquivo->download)?$arquivo->download:NULL;
             
-            if($file){
-                $this->setAFileAttributes(['href' => route('download', ['file' => $readPath[1]]) ]);
+            if($file && $files){
+                $this->setAFileAttributes(['id'=> $arquivo->id, 'onClick' => "downloadSubmit(this)"]);
             }
             return [
                 'id'      => $node,

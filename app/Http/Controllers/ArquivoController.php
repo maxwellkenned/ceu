@@ -24,15 +24,15 @@ class ArquivoController extends Controller
         $barra = '/';
         $download = "";
         $user_id = Auth::id();        
-        $uri = $request->input("uriFolder");
+        $uri = urldecode($request->input("uriFolder"));
         $pathUp = "upload" . $barra . $user_id;
         $pathInfo = '/';
         $subPath = "";
         if(!($uri === "/" || $uri ==="/home" )){
-                $subPath = str_replace("/path/", "", $request->input("uriFolder"));
+                $subPath = str_replace("/path/", "", urldecode($request->input("uriFolder")));
                 $download = $subPath . $barra;
                 $pathInfo = $subPath;
-                $path .= $barra . $subPath;
+                $pathUp .= $barra . $subPath;
             }
 
         $files = $request->file("uploadfile");
@@ -63,6 +63,7 @@ class ArquivoController extends Controller
         $bytes = (int)($bytes / 1024);
         return $bytes;
     }
+    
 
     public static function getFiles($uri = null){
 
@@ -73,10 +74,10 @@ class ArquivoController extends Controller
         $pathUp = "upload" . $barra . $user_id . $barra;
         $path = "upload" . $barra . $user_id . $barra;
         $arquivos = array();
-        $uriTratada = str_replace("/path/".$path, "", $uri);
+        $uriTratada = str_replace("/path/".$path, "", urldecode($uri));
         //$fileinfo = new Arquivo();
         if($uri){
-            $pathUp .= $barra . $uriTratada . $barra;
+            $pathUp .= $uriTratada . $barra;
         }
         $files = Storage::files($pathUp);
         $direct = Storage::Directories($pathUp);
@@ -84,8 +85,7 @@ class ArquivoController extends Controller
             $localArq = str_replace($path, "", $arquivo);
             $fileinfo = DB::table('arquivos')
                         ->select('*')
-                        ->where('download', '=', $localArq)
-                        ->where('idusuario', '=', $user_id)
+                        ->where([['download', '=', $localArq],['idusuario', '=', $user_id]])
                         ->orderBy("id")
                         ->get();
             foreach ($fileinfo as $info) {
@@ -114,13 +114,24 @@ class ArquivoController extends Controller
         return view('home')->with("arquivos", $arquivos);
     }
 
-    public function download($file = ''){
+    public function download($id = ''){
+        $request = new Request;
+        $uri = urldecode($request->input('uri'));
         $user_id = Auth::id();
+        $arquivo = new Arquivo();
+        
+        $arquivo = DB::table('arquivos')->where('id', $id)->first();
+        
+        $file = isset($arquivo->download)?$arquivo->download:NULL;
+        
         if($file){
+            
             $files = Storage_path() .'/app/upload/'. $user_id . '/' . $file;
+            
             return response()->download($files);
         } else {
-            return redirect('/');
+            
+            return redirect($uri);
         }
     }
 
@@ -138,6 +149,7 @@ class ArquivoController extends Controller
         if($nameFolder){
             $folder->nome = $nameFolder;
             $folder->privacidade = $privacityFolder;
+            $folder->save();
             if(!($uri === "/" || $uri ==="/home" )){
                 $directory = $path . $barra . $uriTratada . $barra . $nameFolder;
             } else {
@@ -155,8 +167,27 @@ class ArquivoController extends Controller
         return redirect($uri);
     }
 
-    public function permissao(){
-
+    public function delete($id = '', Request $request){
+        
+        $uri = urldecode($request->input('uri'));
+        $user_id = Auth::id();
+        $arquivo = new Arquivo();
+        
+        $arquivo = DB::table('arquivos')->where('id', $id)->first();
+        
+        $file = isset($arquivo->download)?$arquivo->download:NULL;
+        
+        if($file){
+            
+            DB::table('arquivos')->where('id', $id)->delete();
+            
+            $files = '/upload/'. $user_id . '/' . $file;
+            
+            Storage::delete($files);
+        }
+        
+        
+        return redirect($uri);
     }
 
 }

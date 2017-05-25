@@ -23,9 +23,9 @@ Route::get('/home', 'HomeController@index')->name('home');
 
 Route::post('/upload', 'ArquivoController@upload');
 
-Route::get("/download/{file?}", ['as' => 'download', 'uses' => 'ArquivoController@download'])->where('file', '.+');
+Route::post("/download/{id?}", ['as' => 'download', 'uses' => 'ArquivoController@download'])->where('id', '.+');
 
-Route::get("/delete/{file?}", ['as' => 'delete', 'uses' => 'ArquivoController@delete'])->where('file', '.+');
+Route::post("/delete/{id?}", ['as' => 'delete', 'uses' => 'ArquivoController@delete'])->where('id', '.+');
 
 Route::get("/path/{uri?}", ['as' =>'readFolder', 'uses' =>'ArquivoController@getFiles',])->where('uri', '.+');
 
@@ -34,3 +34,5 @@ Route::post('/createFolder', ['as' => 'createFolder', 'uses' => 'ArquivoControll
 Route::get('tree', ['uses' => 'TreeController@index',]);
 
 Route::get('tree/data', ['as' => 'tree.data', 'uses' => 'TreeController@data', ]);
+
+Route::get('user/{id?}', ['as' => 'perfil', 'uses' => 'ArquivoController@perfil']);

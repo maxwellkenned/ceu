@@ -20,7 +20,7 @@
     <!-- Font-Awesome -->
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
     <!--JsTree 3.3.1 -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jstree/3.2.1/themes/default/style.min.css" />
+    <link href="{{ asset('jstree/dist/themes/default/style.min.css') }}" rel="stylesheet">
     <!-- Scripts -->
     <script> window.Laravel = {!! json_encode([ 'csrfToken' => csrf_token(), ]) !!}; </script>
 </head>
@@ -93,6 +93,7 @@
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
     <script src="{{ asset('js/jquery.uploadfile.min.js')}}"></script>
     <script src="{{ asset('js/dropzone.js') }}"></script>
+    <script src="{{ asset('jstree/dist/jstree.min.js') }}"></script>
     @yield('script')
 </body>
 </html>
