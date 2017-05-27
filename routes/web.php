@@ -35,4 +35,6 @@ Route::get('tree', ['uses' => 'TreeController@index',]);
 
 Route::get('tree/data', ['as' => 'tree.data', 'uses' => 'TreeController@data', ]);
 
-Route::get('user/{id?}', ['as' => 'perfil', 'uses' => 'ArquivoController@perfil']);
+Route::get("user/{id?}/path/{uri?}", ['as' =>'perfil', 'uses' =>'ArquivoController@perfil',])->where(['id'=> '[0-9]+', 'uri' => '.+']);
+
+Route::get("user/{id?}/path/{uri?}", ['as' =>'perfilRead', 'uses' =>'ArquivoController@perfil',])->where(['id'=> '[0-9]+', 'uri' => '.+']);

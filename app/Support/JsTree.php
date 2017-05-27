@@ -315,7 +315,10 @@ class JsTree
             $files = isset($arquivo->download)?$arquivo->download:NULL;
             
             if($file && $files){
-                $this->setAFileAttributes(['id'=> $arquivo->id, 'onClick' => "downloadSubmit(this)"]);
+                $this->setAFileAttributes(['href'=>'','id'=> $arquivo->id, 'onClick' => "downloadSubmit(this)"]);
+               
+            }else{
+                $this->setLiFolderAttributes(['id'=> $arquivo->download]);
             }
             return [
                 'id'      => $node,

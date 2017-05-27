@@ -27,8 +27,9 @@ class MimeIcon
       // Archives
       'application/gzip' => 'fa-file-archive-o',
       'application/zip' => 'fa-file-archive-o',
+      'application/x-zip-compressed' => 'fa-file-archive-o',
       // Misc
-      'application/octet-stream' => 'fa-file',
+      'application/octet-stream' => 'fa-file-archive-o',
       //Folder
       'folder' => 'fa-folder',
     );

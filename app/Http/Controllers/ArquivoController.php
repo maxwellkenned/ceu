@@ -4,7 +4,6 @@ namespace ceu\Http\Controllers;
 
 use Illuminate\Http\Request;
 use ceu\Http\Models\Arquivo;
-use ceu\Http\Models\Folder;
 use ceu\Support\MimeIcon;
 use ceu\Support\Helper;
 use Auth;
@@ -64,53 +63,70 @@ class ArquivoController extends Controller
         return $bytes;
     }
     
+    public function perfil($id, $uri = null){
+        
+        $mimeIcon = new MimeIcon();
+        $helper = new Helper();
+        $barra = '/';
+        $user_id = $id;
+        $urifolder = '/';
+        $arquivos = array();
+        //$fileinfo = new Arquivo();
+        if($uri){
+            $urifolder = urldecode($uri);
+            
+        }
+        // $files = Storage::files($pathUp);
+        // $direct = Storage::Directories($pathUp);
+        $files = DB::table('arquivos')->where([['pasta', $urifolder],['idusuario', $user_id]])->orderBy("isfolder", "created_at")->get();
+        $user = DB::table('users')->where('id', $user_id)->first();
+        foreach ($files as $info) {
+                array_push($arquivos, array(
+                    "id"=>$info->id,
+                    "name"=>$info->nome,
+                    "path"=>$info->pasta,
+                    "mime"=>$mimeIcon->font_icon($info->mime),
+                    "create"=>$info->created_at,
+                    "download"=>$info->download,
+                    "ext"=>$info->ext,
+                    "idusuario"=>$info->idusuario,
+                    "size"=>$helper->tamanho_arquivo($info->size),
+                    "read"=>$urifolder=="/"?$info->nome:$info->pasta,
+                    "isfolder"=>$info->isfolder
+                ));
+            }
+        return view('user')->with(["arquivos" => $arquivos, "user" =>$user]);
+    }
 
     public static function getFiles($uri = null){
-
+        
         $mimeIcon = new MimeIcon();
         $helper = new Helper();
         $barra = '/';
         $user_id = Auth::id();
-        $pathUp = "upload" . $barra . $user_id . $barra;
-        $path = "upload" . $barra . $user_id . $barra;
+        $urifolder = '/';
         $arquivos = array();
-        $uriTratada = str_replace("/path/".$path, "", urldecode($uri));
         //$fileinfo = new Arquivo();
         if($uri){
-            $pathUp .= $uriTratada . $barra;
+            $urifolder = urldecode($uri);
         }
-        $files = Storage::files($pathUp);
-        $direct = Storage::Directories($pathUp);
-        foreach ($files as $arquivo) {
-            $localArq = str_replace($path, "", $arquivo);
-            $fileinfo = DB::table('arquivos')
-                        ->select('*')
-                        ->where([['download', '=', $localArq],['idusuario', '=', $user_id]])
-                        ->orderBy("id")
-                        ->get();
-            foreach ($fileinfo as $info) {
+        // $files = Storage::files($pathUp);
+        // $direct = Storage::Directories($pathUp);
+        $files = DB::table('arquivos')->where([['pasta', $urifolder],['idusuario', $user_id]])->orderBy("isfolder", "created_at")->get();
+        foreach ($files as $info) {
                 array_push($arquivos, array(
-                "id"=>$info->id,
-                "name"=>$info->nome,
-                "path"=>$info->pasta,
-                "ext"=>$info->ext,
-                "size"=>$helper->tamanho_arquivo($info->size),
-                "mime"=>$mimeIcon->font_icon($info->mime),
-                "upload"=>$info->created_at,
-                "download"=>$info->download
+                    "id"=>$info->id,
+                    "name"=>$info->nome,
+                    "path"=>$info->pasta,
+                    "mime"=>$mimeIcon->font_icon($info->mime),
+                    "create"=>$info->created_at,
+                    "download"=>$info->download,
+                    "ext"=>$info->ext,
+                    "size"=>$helper->tamanho_arquivo($info->size),
+                    "read"=>$urifolder=="/"?$info->nome:$info->pasta,
+                    "isfolder"=>$info->isfolder
                 ));
             }
-        }
-        foreach ($direct as $dir) {
-            $folder = explode("/", $dir);
-            $readFolder = explode($path, $dir);
-                array_push($arquivos, array(
-                "name"=>$folder[count($folder)-1],
-                "mime"=>$mimeIcon->font_icon('folder'),
-                "type"=>'folder',
-                "read"=>$readFolder[count($readFolder)-1]
-                ));
-        }
         return view('home')->with("arquivos", $arquivos);
     }
 
@@ -126,7 +142,7 @@ class ArquivoController extends Controller
         
         if($file){
             
-            $files = Storage_path() .'/app/upload/'. $user_id . '/' . $file;
+            $files = Storage_path() .'/app/upload/'. $arquivo->idusuario . '/' . $file;
             
             return response()->download($files);
         } else {
@@ -136,7 +152,7 @@ class ArquivoController extends Controller
     }
 
     public function createFolder(Request $request){
-        $folder = new Folder();
+        $folder = new Arquivo();
         $barra = '/';
         $user_id = Auth::id();
         $path = "upload" . $barra . $user_id;
@@ -149,20 +165,24 @@ class ArquivoController extends Controller
         if($nameFolder){
             $folder->nome = $nameFolder;
             $folder->privacidade = $privacityFolder;
-            $folder->save();
+            $folder->idusuario = $user_id;
+            $folder->ext = 'folder';
+            $folder->mime = 'folder';
+            $folder->size = 0;
+            $folder->isfolder = true;
             if(!($uri === "/" || $uri ==="/home" )){
+                $super = explode('/', $uri);
                 $directory = $path . $barra . $uriTratada . $barra . $nameFolder;
+                $folder->pasta = $uriTratada;
+                $folder->download = $uriTratada . $barra . $nameFolder;
             } else {
                 $directory = $path . $barra . $nameFolder;
+                $folder->pasta = $barra;
+                $folder->download = $nameFolder;
             }
+            $folder->save();
             Storage::makeDirectory($directory);
         }
-        $test = [
-        "uri"=>$uri,
-        "name"=>$nameFolder,
-        "privacidade"=>$privacityFolder,
-        "Folder"=>$folder
-        ];
 
         return redirect($uri);
     }
@@ -172,22 +192,32 @@ class ArquivoController extends Controller
         $uri = urldecode($request->input('uri'));
         $user_id = Auth::id();
         $arquivo = new Arquivo();
-        
         $arquivo = DB::table('arquivos')->where('id', $id)->first();
-        
-        $file = isset($arquivo->download)?$arquivo->download:NULL;
-        
+        $file = isset($arquivo->download)?$arquivo->download:false;
+        $path = '/upload/'. $user_id . '/';
+        $isfolder = isset($arquivo->isfolder)?$arquivo->isfolder:false;
         if($file){
-            
-            DB::table('arquivos')->where('id', $id)->delete();
-            
-            $files = '/upload/'. $user_id . '/' . $file;
-            
-            Storage::delete($files);
+            $pasta = $arquivo->download;
+            if($isfolder){
+                $arqs = DB::table('arquivos')->where([['pasta', $pasta],['idusuario', $user_id]])->get();
+                foreach($arqs as $arq){
+                    $dir = $path . $arq->download;
+                    DB::table('arquivos')->where([['id', $arq->id], ['idusuario', $user_id]])->delete();
+                    Storage::delete($dir);
+                }
+                $dir = $path.$pasta;
+                DB::table('arquivos')->where([['id', $id], ['idusuario', $user_id]])->delete();
+                Storage::deleteDirectory($dir);
+            }else{
+                $dir = $path.$pasta;
+                DB::table('arquivos')->where([['id', $id], ['idusuario', $user_id]])->delete();
+                Storage::delete($dir);
+            }
         }
         
         
         return redirect($uri);
     }
+    
 
 }

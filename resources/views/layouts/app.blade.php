@@ -7,7 +7,9 @@
 
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
-
+    
+    <link rel="shortcut icon" href="/images/cloud1.png" type='image/png' />
+ 
     <title>{{ config('app.name', 'Laravel') }}</title>
 
     <!-- Styles -->
@@ -17,6 +19,9 @@
     <link href="{{ asset('bootstrap/css/bootstrap.min.css') }}" rel="stylesheet">
     <link href="{{ asset('css/uploadfile.css') }}" rel="stylesheet">
     <link href="{{ asset('css/dropzone.css') }}" rel="stylesheet">
+    <link href="{{ asset('jquery-confirm/dist/jquery-confirm.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('datatables/datatables.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('bootstrap-table/dist/bootstrap-table.min.css') }}" rel="stylesheet">
     <!-- Font-Awesome -->
     <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet">
     <!--JsTree 3.3.1 -->
@@ -94,6 +99,10 @@
     <script src="{{ asset('js/jquery.uploadfile.min.js')}}"></script>
     <script src="{{ asset('js/dropzone.js') }}"></script>
     <script src="{{ asset('jstree/dist/jstree.min.js') }}"></script>
+    <script src="{{ asset('jquery-confirm/dist/jquery-confirm.min.js') }}"></script>
+    <script src="{{ asset('datatables/datatables.min.js') }}"></script>
+    <script src="{{ asset('bootstrap-table/dist/bootstrap-table.min.js')}}"></script>
+    <script src="{{ asset('bootstrap-table/dist/locale/bootstrap-table-pt-BR.min.js')}}"></script>
     @yield('script')
 </body>
 </html>

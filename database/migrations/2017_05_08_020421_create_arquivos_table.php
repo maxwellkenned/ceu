@@ -20,7 +20,9 @@ class CreateArquivosTable extends Migration
             $table->string('ext');
             $table->integer('size');
             $table->string('mime');
-            $table->string('download')->unique();
+            $table->string('download');
+            $table->integer('privacidade')->default(0);
+            $table->boolean('isfolder')->default(false);
             $table->integer('idusuario')->unsigned();
             $table->foreign('idusuario')->references('id')->on('users');
             $table->timestamps();

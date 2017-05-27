@@ -21,12 +21,12 @@
             <div class="form-control">
               <div class="form-check form-check-inline">
                 <label class="form-check-label">
-                  <input id="privacityFolder" type="radio" name="privacityFolder" value="1" placeholder="Privada" checked> Privada
+                  <input id="privacityFolder" type="radio" name="privacityFolder" value="0" placeholder="Privada" checked> Privada
                 </label>
               </div>
               <div class="form-check form-check-inline">
                 <label class="form-check-label">
-                  <input id="privacityFolder" type="radio" name="privacityFolder" value="2" placeholder="Pública"> Pública
+                  <input id="privacityFolder" type="radio" name="privacityFolder" value="1" placeholder="Pública"> Pública
                 </label>
               </div>
             </div>
