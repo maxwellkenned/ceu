@@ -17,9 +17,12 @@ class CreateUsersTable extends Migration
             $table->increments('id');
             $table->string('name');
             $table->string('lastname');
+            $table->string('foto')->nullable();
             $table->string('email')->unique();
             $table->string('password');
             $table->boolean('is_admin');
+            $table->dateTime('horario')->default(date('Y-m-d H:i:s'));
+            $table->dateTime('limite')->default(date('Y-m-d H:i:s'));
             $table->rememberToken();
             $table->timestamps();
         });

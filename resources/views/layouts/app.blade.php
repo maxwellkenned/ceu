@@ -30,7 +30,7 @@
     <script> window.Laravel = '{!! json_encode([ "csrfToken" => csrf_token(), ]) !!}'; </script>
 </head>
 <body>
-    <div id="app">
+    <div id="app" onunload="HandleClose()">
         @if(Auth::check())
             @include('layouts/menu')
         @endif
@@ -41,6 +41,8 @@
     <!-- Scripts -->
     <!-- <script src="{{ asset('js/style.js') }}"></script> -->
     <script src="{{ asset('js/jquery-3.1.0.min.js')}}"></script>
+    <script src="{{ asset('js/chat.js') }}"></script>
+    <script src="{{ asset('js/jquery_play.js') }}"></script>
     <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.1/jquery.min.js"></script> -->
     <script src="{{ asset('tether/js/tether.min.js')}}"></script>
     <script src="{{ asset('bootstrap/js/bootstrap.min.js')}}"></script>

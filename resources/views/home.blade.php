@@ -9,36 +9,16 @@
                     <div id="jstree"></div>
             </div>
         </div>
-        <div class="col-md-7">
+        <div class="col-md-6">
             @include('partials/table')
         </div>
-        <div class="col-md-2">
+        <div class="col-md-3">
             @include('partials/chat')
         </div>
     </div>
 </div>
 <aside id="chats">
-    @for ($i=1;$i<=4;$i++)
-        <div class="window" id="janela_x">
-            <div class="header_window"><a href="#" class="close_window">X</a><span class="name">Fulano de tal</span><span id="5" class="status on"></span></div>
-            <div class="body">
-                <div class="mensagens">
-                    <ul>
-                        @for ($n=1;$n<=2;$n++)
-                        <li class="eu"><p>Este é um exemplo de mensagem que aparecera na pagina</p></li>
-                        <li>
-                            <div class="imgSmall"><img src="/fotos/lucas.jpg" border="0" /></div>
-                            <p>Este é um exemplo de mensagem que aparecera na pagina</p>
-                        </li>
-                        @endfor
-                    </ul>
-                </div>
-                <div class="send_message" id="2:1">
-                    <input type="text" name="mensagem" class="msg" id="2:1" />
-                </div>
-            </div>
-        </div>
-    @endfor    
+    
 </aside>
 @include('partials/footer')
 <form id="downloadFile" method="POST" style="display:none;">
@@ -52,11 +32,13 @@
 @endsection
 @section('script')
     <script type="text/javascript">
+        userOnline = "{{Auth::id()}}";
         function downloadSubmit(e){
             var id = e.id;
             $('#downloadFile').attr('action', "{{ route('download')}}/"+id);
             $('#downloadFile').submit();
         }
+        
         $('#jstree').jstree({
             'core': {
                 'data': {
@@ -147,8 +129,6 @@
                 }
             });
         });
-        /*$(document).ready( function () {
-            $('#tableFiles').DataTable();
-        } );*/
+        
     </script>
 @endsection

@@ -4,6 +4,8 @@ namespace ceu\Http\Controllers;
 
 use Illuminate\Http\Request;
 use ceu\Http\Models\Arquivo;
+use ceu\User;
+use ceu\Http\Models\Mensagem;
 use ceu\Support\MimeIcon;
 use ceu\Support\Helper;
 use Auth;
@@ -80,6 +82,7 @@ class ArquivoController extends Controller
         // $direct = Storage::Directories($pathUp);
         $files = DB::table('arquivos')->where([['pasta', $urifolder],['idusuario', $user_id]])->orderBy("isfolder", "created_at")->get();
         $user = DB::table('users')->where('id', $user_id)->first();
+        
         foreach ($files as $info) {
                 array_push($arquivos, array(
                     "id"=>$info->id,
@@ -99,23 +102,30 @@ class ArquivoController extends Controller
     }
 
     public static function getFiles($uri = null){
-        
+        $users = new User();
+        $usuarios = array();
         $mimeIcon = new MimeIcon();
         $helper = new Helper();
+        $usuarios = array();
         $barra = '/';
         $user_id = Auth::id();
         $urifolder = '/';
         $dadFolder = '/';
-        //$fileinfo = new Arquivo();
-        if($uri){
-            $urifolder = urldecode($uri);
-            $r = explode('/', $uri);
-            $dadFolder = str_replace($r[count($r)-1],'',$uri);
-        }
         $arquivos = array();
-
-        // $files = Storage::files($pathUp);
-        // $direct = Storage::Directories($pathUp);
+        $agora = date('Y-m-d H:i:s');
+        
+        
+        if($uri){ $urifolder = urldecode($uri); $r = explode('/', $uri); $dadFolder = str_replace($r[count($r)-1],'',$uri); }
+        
+        $users = DB::table('users')->where('id', '!=', $user_id)->orderBy("name")->get();
+        foreach ($users as $u){
+           array_push($usuarios, array(
+               'id' => $u->id,
+               'name' => $u->name,
+               'foto' => '',
+               'status' => ($agora >= $u->limite) ? 'off' : 'on'
+               ));
+        }
         $files = DB::table('arquivos')->where([['pasta', $urifolder],['idusuario', $user_id]])->orderBy("isfolder", "created_at")->get();
         foreach ($files as $info) {
                 array_push($arquivos, array(
@@ -131,7 +141,7 @@ class ArquivoController extends Controller
                     "isfolder"=>$info->isfolder
                 ));
             }
-        return view('home')->with(["arquivos"=> $arquivos,"canback"=> $dadFolder]);
+        return view('home')->with(["arquivos"=> $arquivos,"canback"=> $dadFolder, "usuarios" => $usuarios]);
     }
 
     public function download($id = ''){
@@ -191,7 +201,7 @@ class ArquivoController extends Controller
         return redirect($uri);
     }
 
-    public function delete($id = '', Request $request){
+    public function delete(Request $request, $id = ''){
         
         $uri = urldecode($request->input('uri'));
         $user_id = Auth::id();

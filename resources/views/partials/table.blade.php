@@ -52,7 +52,7 @@
                                     <form id="formDeleteFolder" action="{{ route('delete', ['id' => isset($arq['id'])?$arq['id']:""]) }}" method="POST" style="width: 22px; display: inherit;" data-toggle="tooltip" data-placement="right" title="Excluir pasta">
                                         {{ csrf_field() }}
                                         <input type="hidden" name="uri" value="{{$_SERVER['REQUEST_URI']}}">
-                                        <button type="button" id="btnFormDeleteFolder" class="btn btn-danger btn-sm btn-top-help" href="">
+                                        <button type="submit" id="btnFormDeleteFolder" class="btn btn-danger btn-sm btn-top-help" href="">
                                             <i class="fa fa-trash-o fa-lg"></i>
                                         </button>
                                     </form>
@@ -65,14 +65,14 @@
                                 <td>{{ isset($arq["size"])?$arq["size"]: ""}} </td>
                                 <td>{{ isset($arq["create"])?$arq["create"]:"" }}</td>
                                 <td class="button-group">
-                                    <form id="formDelete" action="{{ route('delete', ['id' => isset($arq["id"])?$arq["id"]:""]) }}" method="POST" style="margin: 0 2px 0 0; width: 22px; display: inherit;" data-toggle="tooltip" data-placement="top" title="Excluir arquivo">
+                                    <form id="formDelete" action="{{ route('delete', ['id' => isset($arq['id'])?$arq['id']:""]) }}" method="POST" style="margin: 0 2px 0 0; width: 22px; display: inherit;" data-toggle="tooltip" data-placement="top" title="Excluir arquivo">
                                         {{ csrf_field() }}
                                         <input type="hidden" name="uri" value="{{$_SERVER['REQUEST_URI']}}">
-                                        <button type="button" id="btnFormDelete" class="btn btn-danger btn-sm btn-top-help" href="">
+                                        <button type="submit" id="btnFormDelete" class="btn btn-danger btn-sm btn-top-help" href="">
                                             <i class="fa fa-trash-o fa-lg"></i>
                                         </button>
                                     </form>
-                                    <form id="formDownload" action="{{ route('download', ['id' => isset($arq["id"])?$arq["id"]:""]) }}" method="POST" style="width: 22px; display: inherit;" data-toggle="tooltip" data-placement="right" title="Baixar arquivo">
+                                    <form id="formDownload" action="{{ route('download', ['id' => isset($arq['id'])?$arq['id']:""]) }}" method="POST" style="width: 22px; display: inherit;" data-toggle="tooltip" data-placement="right" title="Baixar arquivo">
                                         {{ csrf_field() }}
                                         <input type="hidden" name="uri" value="{{$_SERVER['REQUEST_URI']}}">
                                         <button type="submit" class="btn btn-primary btn-sm btn-top-help" href="">

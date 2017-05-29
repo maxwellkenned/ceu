@@ -38,3 +38,11 @@ Route::get('tree/data', ['as' => 'tree.data', 'uses' => 'TreeController@data', ]
 Route::get("user/{id?}/path/{uri?}", ['as' =>'perfil', 'uses' =>'ArquivoController@perfil',])->where(['id'=> '[0-9]+', 'uri' => '.+']);
 
 Route::get("user/{id?}/path/{uri?}", ['as' =>'perfilRead', 'uses' =>'ArquivoController@perfil',])->where(['id'=> '[0-9]+', 'uri' => '.+']);
+
+Route::Post('useronline', ['as' => 'useronline', 'uses' => "HomeController@online"]);
+Route::Post('useroffline', ['as' => 'useroffline', 'uses' => "HomeController@offline"]);
+
+Route::Post('submitmsg', ['as' => 'submitmsg', 'uses' => 'ChatController@submit']);
+Route::Post('historicomsg', ['as' => 'historicomsg', 'uses' => 'ChatController@historico']);
+Route::Post('lermsg', ['as' => 'lermsg', 'uses' => 'ChatController@lermsg']);
+Route::get('stream', ['as' => 'stream', 'uses' => 'ChatController@stream']);
