@@ -5,7 +5,7 @@
     <div class="row">
         <div class="col-md-3">
             <div class="panel panel-default table-responsive">
-                <div class="panel-heading" style="padding: 5px 10px;"><a class="btn btn-primary" href="{{route('home')}}"><i class="fa fa-home fa-fw"></i>&nbsp; Início </a></div>
+                <div class="panel-heading" style="padding: 2px 10px;"><a class="btn btn-primary" href="{{route('home')}}"><i class="fa fa-home fa-fw"></i>&nbsp; Início </a></div>
                     <div id="jstree"></div>
             </div>
         </div>

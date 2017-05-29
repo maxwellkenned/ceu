@@ -173,7 +173,7 @@ $(function(){
                         clicou = [];
                         $('#users_online ul').html('');
                         $.each(retorno.users, function(i, user) {
-                            var incluir = '<li id="'+user.id+'"><div class="imgSmall"><img src="fotos/default.jpg" border="0" /></div>';
+                            var incluir = '<li id="'+user.id+'"><div class="imgSmall"><img src="/fotos/default.jpg" border="0" /></div>';
                                 incluir += '<a href="" id="'+userOnline+':'+user.id+'" class="comecar">'+user.name+'</a>';
                                 incluir += '<span id="'+user.id+'" class="status '+user.status+'"></span>';
                             $('span#'+user.id).attr('class', 'status '+user.status);
