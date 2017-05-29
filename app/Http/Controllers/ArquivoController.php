@@ -105,11 +105,15 @@ class ArquivoController extends Controller
         $barra = '/';
         $user_id = Auth::id();
         $urifolder = '/';
-        $arquivos = array();
+        $dadFolder = '/';
         //$fileinfo = new Arquivo();
         if($uri){
             $urifolder = urldecode($uri);
+            $r = explode('/', $uri);
+            $dadFolder = str_replace($r[count($r)-1],'',$uri);
         }
+        $arquivos = array();
+
         // $files = Storage::files($pathUp);
         // $direct = Storage::Directories($pathUp);
         $files = DB::table('arquivos')->where([['pasta', $urifolder],['idusuario', $user_id]])->orderBy("isfolder", "created_at")->get();
@@ -127,7 +131,7 @@ class ArquivoController extends Controller
                     "isfolder"=>$info->isfolder
                 ));
             }
-        return view('home')->with("arquivos", $arquivos);
+        return view('home')->with(["arquivos"=> $arquivos,"canback"=> $dadFolder]);
     }
 
     public function download($id = ''){
@@ -157,7 +161,7 @@ class ArquivoController extends Controller
         $user_id = Auth::id();
         $path = "upload" . $barra . $user_id;
         $uri = $request->input("uriFolder");
-        $uriTratada = str_replace("/path/", "", $request->input("uriFolder"));
+        $uriTratada = str_replace("/path/", "", urldecode($request->input("uriFolder")));
         $nameFolder = $request->input("nameFolder");
         $privacityFolder = $request->input("privacityFolder");
         $directory;

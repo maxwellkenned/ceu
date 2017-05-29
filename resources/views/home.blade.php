@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<div class="container">
+<div class="container-fluid">
     <div class="row">
         <div class="col-md-3">
             <div class="panel panel-default table-responsive">
@@ -9,90 +9,38 @@
                     <div id="jstree"></div>
             </div>
         </div>
-        <div class="col-md-6">
-            <div class="panel panel-default">
-                <div class="panel-heading">Upload</div>
-                    <form action="/upload" class="dropzone needsclick dz-clickable" id="formUpload">
-                        {{csrf_field()}}
-                        <input type="hidden" name="uriFolder" value="{{$_SERVER['REQUEST_URI']}}">
-                        
-                    </form>
-            </div>
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <span>Arquivos</span>
-
-                    <div class="pull-right">
-                        <button class="btn btn-primary btn-top-help" data-toggle="modal" data-target="#createFolderModal"><i class="fa fa-folder-o fa-fw" ></i>&nbsp; Criar Pasta</button>
-                        @include('partials/createFolderModal')
-                    </div>
-                </div>
-                @if($arquivos)
-                <div class="table-responsive" style="margin-top:5px;">
-                   <table id="tableFiles" data-toggle="table" data-classes="table table-hover table-condensed" data-striped="true" data-search="true" data-query-params="queryParams"  data-page-list="[5, 10, 20, 50, 100, 200]" data-pagination="true" data-height="400" data-show-toggle="true" data-show-columns="true">
-                       <thead>
-                            <tr>
-                                <th data-field="name" data-sortable="true">Arquivo</th>
-                                <th data-field="pasta" data-sortable="true">Pasta</th>
-                                <th data-field="tipo" data-sortable="true">Tipo</th>
-                                <th data-field="tamanho" data-sortable="true">Tamanho</th>
-                                <th data-field="upload" data-sortable="true">Data upload</th>
-                                <th data-field="acao">Ação</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach($arquivos as $arq)
-                                <tr>
-                                    @if((isset($arq["isfolder"])?$arq["isfolder"]:''))
-                                        
-                                        <td><i class='fa fa-lg {{ isset($arq["mime"])?$arq["mime"]:"" }}' ></i>&nbsp; <a href='{{ route("readFolder", ["uri" => isset($arq["download"])? $arq["download"] :""]) }}'>{{ isset($arq["name"])? $arq["name"]:"" }}</a></td>
-                                        <td>{{ isset($arq["path"])?$arq["path"]:"" }}</td>
-                                        <td></td>
-                                        <td></td>
-                                        <td>{{ isset($arq["create"])?$arq["create"]:"" }}</td>
-                                        <td>
-                                            <form id="formDeleteFolder" action="{{ route('delete', ['id' => isset($arq['id'])?$arq['id']:""]) }}" method="POST" style="width: 22px; display: inherit;">
-                                                {{ csrf_field() }}
-                                                <input type="hidden" name="uri" value="{{$_SERVER['REQUEST_URI']}}">
-                                                <button type="button" id="btnFormDeleteFolder" class="btn btn-danger btn-sm btn-top-help" href="">
-                                                    <i class="fa fa-trash-o fa-lg"></i>
-                                                </button>
-                                            </form>
-                                        </td>
-        
-                                    @else
-                                        <td><i class='fa fa-lg {{ isset($arq["mime"])?$arq["mime"]:"" }}' ></i>&nbsp; {{ isset($arq["name"])?$arq["name"]:"" }}</td>
-                                        <td>{{ isset($arq["path"])?$arq["path"]:"" }}</td>
-                                        <td>{{ isset($arq["ext"])?$arq["ext"]:"" }}</td>
-                                        <td>{{ isset($arq["size"])?$arq["size"]: ""}} </td>
-                                        <td>{{ isset($arq["create"])?$arq["create"]:"" }}</td>
-                                        <td class="button-group">
-                                            <form id="formDelete" action="{{ route('delete', ['id' => isset($arq["id"])?$arq["id"]:""]) }}" method="POST" style="margin: 0 2px 0 0; width: 22px; display: inherit;">
-                                                {{ csrf_field() }}
-                                                <input type="hidden" name="uri" value="{{$_SERVER['REQUEST_URI']}}">
-                                                <button type="button" id="btnFormDelete" class="btn btn-danger btn-sm btn-top-help" href="">
-                                                    <i class="fa fa-trash-o fa-lg"></i>
-                                                </button>
-                                            </form>
-                                            <form id="formDownload" action="{{ route('download', ['id' => isset($arq["id"])?$arq["id"]:""]) }}" method="POST" style="width: 22px; display: inherit;">
-                                                {{ csrf_field() }}
-                                                <input type="hidden" name="uri" value="{{$_SERVER['REQUEST_URI']}}">
-                                                <button type="submit" class="btn btn-primary btn-sm btn-top-help" href="">
-                                                    <i class="fa fa-cloud-download fa-lg"></i>
-                                                </button>
-                                            </form>
-                                        </td>
-                                    @endif
-                               </tr>
-                            @endforeach
-                        </tbody>
-                   </table>
-                </div>
-                   @endif
-            </div>
+        <div class="col-md-7">
+            @include('partials/table')
+        </div>
+        <div class="col-md-2">
+            @include('partials/chat')
         </div>
     </div>
 </div>
+<aside id="chats">
+    @for ($i=1;$i<=4;$i++)
+        <div class="window" id="janela_x">
+            <div class="header_window"><a href="#" class="close_window">X</a><span class="name">Fulano de tal</span><span id="5" class="status on"></span></div>
+            <div class="body">
+                <div class="mensagens">
+                    <ul>
+                        @for ($n=1;$n<=2;$n++)
+                        <li class="eu"><p>Este é um exemplo de mensagem que aparecera na pagina</p></li>
+                        <li>
+                            <div class="imgSmall"><img src="/fotos/lucas.jpg" border="0" /></div>
+                            <p>Este é um exemplo de mensagem que aparecera na pagina</p>
+                        </li>
+                        @endfor
+                    </ul>
+                </div>
+                <div class="send_message" id="2:1">
+                    <input type="text" name="mensagem" class="msg" id="2:1" />
+                </div>
+            </div>
+        </div>
+    @endfor    
+</aside>
+@include('partials/footer')
 <form id="downloadFile" method="POST" style="display:none;">
     {{ csrf_field() }}
     <input type="hidden" name="uri" value="{{$_SERVER['REQUEST_URI']}}">
@@ -100,6 +48,7 @@
         <i class="fa fa-trash-o fa-lg"></i>
     </button>
 </form>
+
 @endsection
 @section('script')
     <script type="text/javascript">
@@ -116,7 +65,8 @@
                         return {'id': node.id};
                     },
                     'error': function (data) {
-                        $('#jstree').html('<p>We had an error...</p>');
+                        console.log(data.responseText);
+                        $('#jstree').html('<p>Ocorreu um erro...</p>');
                     }
                 }
             }

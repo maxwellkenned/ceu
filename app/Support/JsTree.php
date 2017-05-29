@@ -305,15 +305,12 @@ class JsTree
         $filters = $this->filterExcludes($elements);
 
         $nodes = collect($filters)->map(function ($node) {
-            $barra = '/';
             $user_id = Auth::id();
-            $path = "upload" . $barra . $user_id . $barra;
-            $file = (pathinfo($node, PATHINFO_EXTENSION) ? true : false);
-            $readPath = explode($path , $node);
             $arquivo = new Arquivo();
-            $arquivo = DB::table('arquivos')->where('download', $readPath[1])->first();
+            //echo  json_encode($node);
+            $arquivo = DB::table('arquivos')->where('download', $node)->first();
             $files = isset($arquivo->download)?$arquivo->download:NULL;
-            
+            $file = $arquivo->isfolder==1?false:true;
             if($file && $files){
                 $this->setAFileAttributes(['href'=>'','id'=> $arquivo->id, 'onClick' => "downloadSubmit(this)"]);
                
@@ -333,8 +330,7 @@ class JsTree
                 'li_attr' => $this->filterAttributes('folder', 'li'),
                 'a_attr'  => ($file ? $this->filterAttributes('file', 'a') : $this->filterAttributes('folder', 'a')),
             ];
-        })
-            ->sort();
+        });
 
 
         return $nodes->values()->toArray();

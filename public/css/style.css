@@ -1,8 +1,76 @@
+/* Sticky footer styles
+-------------------------------------------------- */
+html {
+  position: relative;
+  min-height: 100%;
+}
+.footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  height: 25px;
+  background-color: #f5f5f5;
+}
+
+.container-fluid{
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+}
+
+@media (max-width: 576px) {
+  .navbar-brand {
+      padding-top: .9rem !important;
+      font-size: 2.5rem !important;
+  }
+  .navbar-nav .dropdown {
+    padding-top: 0 !important;
+    overflow-y: hidden;
+  }
+}
+.fixed-table-pagination .page-list{
+  width:140px !important;
+}
+.navbar-right{
+    margin-right: 0 !important;
+    vertical-align: middle;
+}
+.navbar-brand {
+    display: inline-block;
+    padding-top: .25rem;
+    padding-bottom: 0px;
+    margin-right: 1rem;
+    font-size: 2.25rem;
+    line-height: inherit;
+    height: 29px;
+    white-space: nowrap;
+}
+
+.navbar-nav .dropdown {
+    line-height: inherit;
+    padding-top: 1rem;
+    font-size: 1.25rem;
+}
+.fixed-table-pagination .pagination-detail {
+    margin-top: 8px !important;
+    margin-bottom: 0px !important;
+}
+.fixed-table-pagination .pagination-info {
+    
+    margin-left: 5px;
+}
+.form-control{
+    font-size: 1.5rem;
+}
+.panel-heading{
+    font-size: 1.5rem;
+}
 .margin-top{
 margin-top:5%;
 }
 .navbar-nav>li>a {
     padding: 0 !important;
+        font-size: 20px;
 }
 .ajax-file-upload-container{
     margin:0 !important;;
@@ -23,13 +91,377 @@ margin-top:5%;
     color: #646C7F;
     margin: 1em 0 !important;
 }
-.dropzone {
-    border: 2px dashed rgba(126, 21, 129, 0.7)!important;;
-    border-radius: 5px;
-    background: white;
-    min-height: 0px !important;
-}
 
 .btn-top-help{
     margin-top: -4px;
+}
+.fixed-table-toolbar .bs-bars, .fixed-table-toolbar .columns, .fixed-table-toolbar .search{
+    margin-top: 0 !important;
+    margin-bottom: 5px !important;
+}
+.fixed-table-toolbar .glyphicon, .fa {
+ font-size: 20px !important;
+}
+.fixed-table-toolbar .form-control{
+    line-height: 1 !important;
+    font-size: 20px !important;
+    float: right;
+    width:60%;
+}
+
+.close {
+  float: right;
+  font-size: 2.5rem;
+  font-weight: bold;
+  line-height: 1;
+  color: #000;
+  text-shadow: 0 1px 0 #fff;
+  opacity: .5;
+}
+
+.close:focus, .close:hover {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
+  opacity: .75;
+}
+
+button.close {
+  padding: 0;
+  cursor: pointer;
+  background: transparent;
+  border: 0;
+  -webkit-appearance: none;
+}
+
+.modal-open {
+  overflow: hidden;
+}
+
+.modal {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1050;
+  display: none;
+  overflow: hidden;
+  outline: 0;
+}
+
+.modal.fade .modal-dialog {
+  -webkit-transition: -webkit-transform 0.3s ease-out;
+  transition: -webkit-transform 0.3s ease-out;
+  -o-transition: -o-transform 0.3s ease-out;
+  transition: transform 0.3s ease-out;
+  transition: transform 0.3s ease-out, -webkit-transform 0.3s ease-out, -o-transform 0.3s ease-out;
+  -webkit-transform: translate(0, -25%);
+       -o-transform: translate(0, -25%);
+          transform: translate(0, -25%);
+}
+
+.modal.show .modal-dialog {
+  -webkit-transform: translate(0, 0);
+       -o-transform: translate(0, 0);
+          transform: translate(0, 0);
+}
+
+.modal-open .modal {
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+.modal-dialog {
+  position: relative;
+  width: auto;
+  margin: 10px;
+}
+
+.modal-content {
+  position: relative;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+  -webkit-flex-direction: column;
+      -ms-flex-direction: column;
+          flex-direction: column;
+  background-color: #fff;
+  -webkit-background-clip: padding-box;
+          background-clip: padding-box;
+  border: 1px solid rgba(0, 0, 0, 0.2);
+  border-radius: 0.3rem;
+  outline: 0;
+}
+
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1040;
+  background-color: #000;
+}
+
+.modal-backdrop.fade {
+  opacity: 0;
+}
+
+.modal-backdrop.show {
+  opacity: 0.5;
+}
+
+.modal-header {
+    display: flex;
+    align-items: inherit;
+    justify-content: space-between;
+    padding: 15px;
+    border-bottom: 1px solid #eceeef;
+}
+
+.modal-title {
+  margin-bottom: 0;
+  line-height: 1.5;
+  width: 90%;
+  font-size: 2.5rem;
+}
+
+.modal-body {
+  position: relative;
+  -webkit-box-flex: 1;
+  -webkit-flex: 1 1 auto;
+      -ms-flex: 1 1 auto;
+          flex: 1 1 auto;
+  padding: 15px;
+}
+
+.modal-footer {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -webkit-align-items: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: end;
+  -webkit-justify-content: flex-end;
+      -ms-flex-pack: end;
+          justify-content: flex-end;
+  padding: 15px;
+  border-top: 1px solid #eceeef;
+}
+
+.modal-footer > :not(:first-child) {
+  margin-left: .25rem;
+}
+
+.modal-footer > :not(:last-child) {
+  margin-right: .25rem;
+}
+
+.modal-scrollbar-measure {
+  position: absolute;
+  top: -9999px;
+  width: 50px;
+  height: 50px;
+  overflow: scroll;
+}
+
+@media (min-width: 576px) {
+  .modal-dialog {
+    max-width: 500px;
+    margin: 70px auto;
+  }
+  .modal-sm {
+    max-width: 300px;
+  }
+}
+
+@media (max-width: 576px) {
+  .modal-dialog {
+    margin: 70px auto;
+  }
+}
+
+@media (min-width: 992px) {
+  .modal-lg {
+    max-width: 800px;
+  }
+}
+ul{
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+.panel-body{
+  padding: 0 !important;
+}
+#users_online{
+  width: 100%;
+  height: 100%;
+  background:linear-gradient(to right, #ccc, #fff 30%);
+  border-left:1px solid #999;
+  overflow-y: auto;
+}
+
+#users_online ul li{
+  float: left;
+  width: 100%;
+  border: 1px solid transparent;
+  padding: 5px;
+  margin-left: -1px;
+  border-right: 0;
+  border-left: 0;
+  position: relative;
+}
+#users_online ul li:hover{
+ border-color: #999;
+ background: linear-gradient(to right, #ccc, #fff 60%);
+}
+#users_online ul li a{
+  float: left;
+  width: 70%;
+  margin-left: 10px;
+  font:15px Tahoma, arial, helvetica;
+  color:#666;
+  text-decoration: none;
+  line-height: 35px;
+}
+#users_online .lista_users{
+  float: left;
+  max-height:520px;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+.imgSmall{
+  float: left;
+  width: 35px;
+  height: 35px;
+  overflow: hidden;
+  border-radius: 50%;
+}
+.imgSmall img{
+  width: 100%;
+  height: 100%;
+}
+.status{
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  width: 12px;
+  height: 12px;
+  margin-top: -6px;
+  border-radius: 50%;
+  background:#666;
+}
+.status.off{
+ background-color: #CCC; 
+}
+.status.on{
+ background-color: #090; 
+}
+
+/* Aside dos chats */
+
+#chats{
+  position: absolute;
+  bottom: 25px;
+  left: 0;
+  width: 84.4%;
+}
+
+/* Janelas*/
+.window{
+  float:left;
+  width: 270px;
+  margin-left: 5px;
+  height: auto;
+  overflow: hidden;
+  border-radius: 4px;
+}
+
+.window .header_window{
+  float:left;
+  background: #00ACE6;
+  padding: 5px;
+  width: 270px;
+  position: relative;
+}
+
+.window .header_window .close_window{
+ text-decoration: none;
+ float: left;
+ color: white;
+ font: 16px Tahoma, arial;
+ padding: 0 10px 0 0;
+}
+
+.window .header_window .name{
+  float: left;
+  color: white;
+  font: 16px Tahoma, arial;
+}
+
+.window .body{
+  float: left;
+  width: 100%;
+}
+
+.window .body .mensagens{
+  float: left;
+  width: 100%;
+  background:#ebebeb;
+  border-left: 1px solid #ccc;
+  border-right: 1px solid #ccc;
+  height: 230px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  padding: 4px;
+}
+.mensagens ul{
+  float: left;
+  width: 100%;
+}
+.mensagens ul li{
+  float: right;
+  width: 80%;
+  background:linear-gradient(to bottom, #fff, #ccc 130%);
+  border:1px solid #999;
+  border-radius: 4px;
+  position: relative;
+  padding: 4px;
+  margin-bottom: 7px;
+}
+.mensagens ul li .imgSmall{
+  position: absolute;
+  width: 35px;
+  height: 35px;
+  left:-45px;
+  
+}
+.mensagens ul li p{
+  font: 13px Tahoma,arial;
+  color:#666;
+}
+.mensagens ul li.eu{
+  float: left;
+  background:#A4E9FF;
+}
+.window .body .send_message{
+  float: left;
+  width: 100%;
+  position: relative;
+}
+.window .body .send_message input{
+  float: left;
+  width: 100%;
+  padding: 3px;
+  background:white;
+  border: 1px solid #ccc;
+  outline:none;
 }
